@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Student</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Background gradient */
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+
+    /* Card header */
+    .card-header {
+      border-radius: 20px 20px 0 0 !important;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+
+    /* Form labels */
+    label.form-label {
+      font-weight: 500;
+    }
+
+    /* Input fields hover/focus effect */
+    .form-control:focus {
+      border-color: #4ade80;
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+    }
+
+    /* Buttons */
+    .btn-success {
+      background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+      border: none;
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .btn-secondary {
+      background: #6b7280;
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background: #4b5563;
+    }
+
+    /* Rounded image preview */
+    .profile-img {
+      border-radius: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <div class="card glass-card shadow-lg">
+      <div class="card-header bg-primary text-white text-center">
+        ✏ Edit Student
+      </div>
+      <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" name="full_name" value="{{ student.full_name }}" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Father's Name</label>
+              <input type="text" class="form-control" name="father_name" value="{{ student.father_name }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Mother's Name</label>
+              <input type="text" class="form-control" name="mother_name" value="{{ student.mother_name }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" class="form-control" name="date_of_birth" value="{{ student.date_of_birth }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Gender</label>
+              <select class="form-control" name="gender">
+                <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+                <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+                <option value="Other" {% if student.gender == "Other" %}selected{% endif %}>Other</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Nationality</label>
+              <input type="text" class="form-control" name="nationality" value="{{ student.nationality }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Religion</label>
+              <input type="text" class="form-control" name="religion" value="{{ student.religion }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address</label>
+              <textarea class="form-control" name="address" rows="2">{{ student.address }}</textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contact Number</label>
+              <input type="text" class="form-control" name="contact_number" value="{{ student.contact_number }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" name="email" value="{{ student.email }}" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">B-Form Number</label>
+              <input type="text" class="form-control" name="b_form_number" value="{{ student.b_form_number }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Previous School</label>
+              <input type="text" class="form-control" name="previous_school" value="{{ student.previous_school }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Class Applying For</label>
+              <input type="text" class="form-control" name="class_applying_for" value="{{ student.class_applying_for }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Emergency Contact</label>
+              <input type="text" class="form-control" name="emergency_contact" value="{{ student.emergency_contact }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Medical Information</label>
+              <input type="text" class="form-control" name="medical_info" value="{{ student.medical_info }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Languages Spoken</label>
+              <input type="text" class="form-control" name="languages_spoken" value="{{ student.languages_spoken }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Profile Image</label><br>
+              <img src="{{ url_for('static', filename='uploads/' ~ student.image) }}" alt="student" class="profile-img mb-2" width="100">
+              <input type="file" class="form-control" name="image">
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">💾 Save Changes</button>
+            <a href="{{ url_for('list_students') }}" class="btn btn-secondary btn-lg ms-2">⬅ Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

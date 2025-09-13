@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login - AI Factory</title>
+
+<link rel="shortcut icon" href="/static/img/logo.png" type="image/x-icon">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/*===== VARIABLES CSS =====*/
+:root{
+    --first-color: #12192C;
+    --text-color: #8590AD;
+    --body-font: 'Roboto', sans-serif;
+    --big-font-size: 2rem;
+    --normal-font-size: 0.938rem;
+    --smaller-font-size: 0.875rem;
+}
+@media screen and (min-width: 768px){
+    :root{
+        --big-font-size: 2.5rem;
+        --normal-font-size: 1rem;
+    }  
+}
+
+/*===== BASE =====*/
+*,::before,::after{ box-sizing: border-box; }
+body{
+    margin: 0;
+    padding: 0;
+    font-family: var(--body-font);
+    background: url('/static/img/adminbg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+body::before{
+    content: "";
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 0;
+}
+
+/*===== FORM LAYOUT =====*/
+.l-form{
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.37);
+    width: 90%;
+    max-width: 900px;
+    overflow: hidden;
+}
+.form__content{
+    padding: 40px;
+    width: 100%;
+    max-width: 350px;
+}
+.form__img{
+    display: none;
+    width: 100%;
+    justify-self: center;
+}
+.form__title{
+    font-size: var(--big-font-size);
+    font-weight: 500;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Input Fields */
+.form__div{
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin-bottom: 1.5rem;
+    padding: .25rem 0;
+    border-bottom: 1px solid var(--text-color);
+}
+.form__div.focus{ border-bottom: 1px solid var(--first-color); }
+.form__icon{ font-size: 1.5rem; color: var(--text-color); transition: .3s; }
+.form__div.focus .form__icon{ color: var(--first-color); }
+
+.form__label{
+    position: absolute;
+    left: .75rem;
+    top: .25rem;
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+    transition: .3s;
+}
+.form__div.focus .form__label{
+    top: -1.5rem;
+    font-size: .875rem;
+    color: var(--first-color);
+}
+
+.form__input{
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    padding: .5rem .75rem;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* Buttons */
+.form__button{
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--first-color);
+    color: #fff;
+    border: none;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: .3s;
+}
+.form__button:hover{ box-shadow: 0px 15px 36px rgba(0,0,0,.15); }
+
+.btn-link{ color: #00f0ff; text-decoration: none; }
+.btn-link:hover{ color: #00d9ff; }
+
+/* Right side image */
+.login-image img{
+    width: 100%;
+    object-fit: contain;
+}
+
+/* Responsive */
+@media screen and (min-width: 968px){
+    .form__img{ display: block; }
+}
+@media(max-width: 768px){
+    .l-form{ grid-template-columns: 1fr; }
+    .form__img{ display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Form Container -->
+<div class="l-form">
+    <!-- Left: Form -->
+    <div class="form__content">
+        <h2 class="form__title">Admin Login</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form__div">
+                <i class="form__icon bi bi-person"></i>
+                <input type="email" class="form__input" name="email" placeholder="Email" required>
+            </div>
+            <div class="form__div">
+                <i class="form__icon bi bi-lock"></i>
+                <input type="password" class="form__input" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="form__button">Login</button>
+            <!-- <div class="text-center mt-3">
+                <a href="{{ url_for('admin_register') }}" class="btn-link">Register</a>
+            </div> -->
+        </form>
+    </div>
+
+    <!-- Right: Local Image -->
+    <div class="form__img login-image" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <img src="/static/img/authentication.svg" alt="Admin Illustration" style="width: 550px;">
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</body>
+</html>

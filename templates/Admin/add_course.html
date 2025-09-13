@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-width: 220px;
+            max-width: 220px;
+            background-color: #343a40;
+            color: white;
+            height: 100vh;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column p-3">
+        <h4 class="text-center">Admin Panel</h4>
+        <hr>
+       <ul class="nav nav-pills flex-column mb-auto">
+            <li><a href="{{ url_for('admin_dashboard') }}" class="nav-link text-white">Dashboard</a></li>
+            <li><a href="{{ url_for('admin_courses') }}" class="nav-link text-white">Courses</a></li>
+            <li><a href="{{ url_for('admin_students') }}" class="nav-link text-white">Manage Students</a></li>
+            <li><a href="{{ url_for('admin_faculty') }}" class="nav-link text-white">Faculty Management</a></li>
+            <li><a href="{{ url_for('assign_courses') }}" class="nav-link text-white">course assign</a></li>
+            <li><a href="{{ url_for('admin_logout') }}" class="nav-link text-white">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h2>Add New IT Course</h2>
+       <form method="POST" enctype="multipart/form-data">
+    <!-- Basic Info -->
+    <div class="mb-3">
+        <label>Course Title</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Subtitle</label>
+        <input type="text" name="subtitle" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea name="description" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <!-- Course Details -->
+    <div class="mb-3">
+        <label>Duration</label>
+        <input type="text" name="duration" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Level</label>
+        <select name="level" class="form-control">
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Language</label>
+        <input type="text" name="language" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label>Enrolled Students</label>
+        <input type="number" name="enrolled" class="form-control" value="0">
+    </div>
+    <div class="mb-3">
+        <label>Certificate</label>
+        <select name="certificate" class="form-control">
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+
+    <!-- Curriculum -->
+    <div class="mb-3">
+        <label>Curriculum / Modules</label>
+        <input type="text" name="curriculum" class="form-control mb-2" placeholder="Module 1">
+        <input type="text" name="curriculum" class="form-control mb-2" placeholder="Module 2">
+        <input type="text" name="curriculum" class="form-control mb-2" placeholder="Module 3">
+    </div>
+
+    <!-- Image Upload -->
+    <div class="mb-3">
+        <label>Course Image</label>
+        <input type="file" name="image_file" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Course</button>
+    <a href="{{ url_for('admin_courses') }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+    </div>
+</div>
+</body>
+</html>

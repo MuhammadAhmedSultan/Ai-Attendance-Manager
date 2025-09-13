@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar {
+            min-width: 220px;
+            max-width: 220px;
+            background-color: #343a40;
+            color: white;
+            height: 100vh;
+        }
+        .sidebar a { color: white; text-decoration: none; }
+        .sidebar a:hover { background-color: #495057; }
+        .content { padding: 30px; flex-grow: 1; }
+        .course-card { background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .course-card img { max-width: 100%; border-radius: 5px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column p-3">
+        <h4 class="text-center">Admin Panel</h4>
+        <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+            <li><a href="{{ url_for('admin_dashboard') }}" class="nav-link text-white">Dashboard</a></li>
+            <li><a href="{{ url_for('admin_courses') }}" class="nav-link text-white">Courses</a></li>
+            <li><a href="{{ url_for('admin_students') }}" class="nav-link text-white">Manage Students</a></li>
+            <li><a href="{{ url_for('admin_faculty') }}" class="nav-link text-white">Faculty Management</a></li>
+            <li><a href="{{ url_for('assign_courses') }}" class="nav-link text-white">course assign</a></li>
+            <li><a href="{{ url_for('admin_logout') }}" class="nav-link text-white">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="course-card">
+            {% if course.image_url %}
+                <img src="{{ course.image_url }}" alt="{{ course.title }}">
+            {% endif %}
+            <h2>{{ course.title }}</h2>
+            {% if course.subtitle %}
+                <h5 class="text-muted">{{ course.subtitle }}</h5>
+            {% endif %}
+            <p>{{ course.description }}</p>
+            
+            <ul class="list-unstyled">
+                <li><strong>Duration:</strong> {{ course.duration or '-' }}</li>
+                <li><strong>Level:</strong> {{ course.level or '-' }}</li>
+                <li><strong>Language:</strong> {{ course.language or '-' }}</li>
+                <li><strong>Enrolled Students:</strong> {{ course.enrolled_students or 0 }}</li>
+                <li><strong>Certificate:</strong> {{ course.certificate or '-' }}</li>
+                {% if course.curriculum %}
+                    <li><strong>Modules:</strong>
+                        <ul>
+                            {% for module in course.curriculum %}
+                                <li>{{ module }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <a href="{{ url_for('admin_courses') }}" class="btn btn-secondary mt-3">Back to Courses</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
